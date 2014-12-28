@@ -1,0 +1,19 @@
+{
+  "name": "angular-simple-calendar",
+  "version": "1.0.0",
+  "authors": [
+    "Ilya Gelman <ilyagelman@ilyagelman.com>"
+  ],
+  "description": "Simple customizable AngularJS calendar with no dependencies and timed events",
+  "main": ["dist/angular-simple-calendar.css, dist/angular-simple-calendar.js"],
+  "keywords": [
+    "angular",
+    "angularjs",
+    "calendar",
+    "date"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*"
+  ]
+}

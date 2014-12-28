@@ -1,0 +1,72 @@
+simple-calendar * {
+  user-select: none;
+}
+
+simple-calendar .calendar{
+  padding: 0;
+  border: 1px solid #dddddd;
+  user-select: none;
+  background-color: #fff;
+}
+
+simple-calendar .move-month {
+  cursor: pointer;
+}
+
+simple-calendar .prev-month {
+  float: left;
+}
+
+simple-calendar .next-month {
+  float: right;
+}
+
+simple-calendar .current-month {
+  width: 100%;
+  text-align: center;
+  padding: 20px 8px;
+}
+
+simple-calendar .week {
+  height: 30px;
+}
+
+simple-calendar .weekday {
+  text-align: center;
+}
+
+simple-calendar .week .day:last-child {
+  border-right: none;
+}
+
+simple-calendar .weekday, .day {
+  display: inline-block;
+  width: calc(100% / 7);
+}
+
+simple-calendar .day {
+  height: 30px;
+  padding: 2px;
+  border: 1px solid #dddddd;
+  border-bottom: none;
+  border-left: none;
+  overflow: hidden;
+}
+
+simple-calendar .day:hover {
+  cursor: pointer;
+}
+
+simple-calendar .day.default {
+  background-color: lightblue;
+}
+
+simple-calendar .day.event {
+  background-color: #fdf3ea;
+}
+
+simple-calendar .day.disabled {
+  cursor: default;
+  color: silver;
+  background-color: white;
+}
