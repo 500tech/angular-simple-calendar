@@ -35,7 +35,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
     controller: function ($scope) {
       var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       var WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      var calculateWeeks, allowedDate, bindEvent;
+      var calculateSelectedDate, calculateWeeks, allowedDate, bindEvent;
 
       $scope.options = $scope.options || {};
       $scope.options.dayNamesLength = $scope.options.dayNamesLength || 1;
@@ -48,12 +48,6 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           $scope.options.dateClick(date);
         }
       };
-
-      if ($scope.options.defaultDate) {
-        $scope.options.defaultDate = new Date($scope.options.defaultDate);
-      } else {
-        $scope.options.defaultDate = new Date();
-      }
 
       if ($scope.options.minDate) {
         $scope.options.minDate = new Date($scope.options.minDate);
@@ -152,10 +146,18 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         }
       };
 
-      $scope.selectedYear  = $scope.options.defaultDate.getFullYear();
-      $scope.selectedMonth = MONTHS[$scope.options.defaultDate.getMonth()];
-      $scope.selectedDay   = $scope.options.defaultDate.getDate();
-      calculateWeeks();
+      calculateSelectedDate = function () {
+        if ($scope.options.defaultDate) {
+          $scope.options._defaultDate = new Date($scope.options.defaultDate);
+        } else {
+          $scope.options._defaultDate = new Date();
+        }
+
+        $scope.selectedYear  = $scope.options._defaultDate.getFullYear();
+        $scope.selectedMonth = MONTHS[$scope.options._defaultDate.getMonth()];
+        $scope.selectedDay   = $scope.options._defaultDate.getDate();
+        calculateWeeks();
+      };
 
       $scope.weekDays = function (size) {
         return WEEKDAYS.map(function(name) { return name.slice(0, size) });
@@ -163,9 +165,9 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
 
       $scope.isDefaultDate = function (date) {
         if (!date) { return; }
-        return date.year === $scope.options.defaultDate.getFullYear() &&
-          date.month === $scope.options.defaultDate.getMonth() &&
-          date.day === $scope.options.defaultDate.getDate()
+        return date.year === $scope.options._defaultDate.getFullYear() &&
+          date.month === $scope.options._defaultDate.getMonth() &&
+          date.day === $scope.options._defaultDate.getDate()
       };
 
       $scope.prevMonth = function () {
@@ -191,6 +193,10 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         }
         calculateWeeks();
       };
+
+      $scope.$watch('options.defaultDate', function() {
+        calculateSelectedDate();
+      });
 
     }
   }

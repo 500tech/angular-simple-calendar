@@ -46,11 +46,6 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
       else
         $scope.options.dateClick(date)
 
-    if $scope.options.defaultDate
-      $scope.options.defaultDate = new Date($scope.options.defaultDate)
-    else
-      $scope.options.defaultDate = new Date()
-
     if $scope.options.minDate
       $scope.options.minDate = new Date($scope.options.minDate)
 
@@ -109,19 +104,25 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
           $scope.weeks.push(week)
           week = undefined
 
-    $scope.selectedYear  = $scope.options.defaultDate.getFullYear()
-    $scope.selectedMonth = MONTHS[$scope.options.defaultDate.getMonth()]
-    $scope.selectedDay   = $scope.options.defaultDate.getDate()
-    calculateWeeks()
+    calculateSelectedDate = ->
+      if $scope.options.defaultDate
+        $scope.options._defaultDate = new Date($scope.options.defaultDate)
+      else
+        $scope.options._defaultDate = new Date()
+
+      $scope.selectedYear  = $scope.options._defaultDate.getFullYear()
+      $scope.selectedMonth = MONTHS[$scope.options._defaultDate.getMonth()]
+      $scope.selectedDay   = $scope.options._defaultDate.getDate()
+      calculateWeeks()
 
     $scope.weekDays = (size = 9) ->
       WEEKDAYS.map (name) -> name.slice(0, size)
 
     $scope.isDefaultDate = (date) ->
       return unless date
-      date.year == $scope.options.defaultDate.getFullYear() &&
-        date.month == $scope.options.defaultDate.getMonth() &&
-        date.day == $scope.options.defaultDate.getDate()
+      date.year == $scope.options._defaultDate.getFullYear() &&
+        date.month == $scope.options._defaultDate.getMonth() &&
+        date.day == $scope.options._defaultDate.getDate()
 
     $scope.prevMonth = ->
       return unless $scope.allowedPrevMonth()
@@ -142,3 +143,6 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
       else
         $scope.selectedMonth = MONTHS[currIndex + 1]
       calculateWeeks()
+
+    $scope.$watch 'options.defaultDate', ->
+      calculateSelectedDate()
