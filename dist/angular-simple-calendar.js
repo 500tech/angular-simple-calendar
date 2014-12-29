@@ -60,6 +60,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
       bindEvent = function (date) {
         if (!date || !$scope.events) { return; }
         $scope.events.forEach(function(event) {
+          event.date = new Date(event.date);
           if (date.year === event.date.getFullYear() && date.month === event.date.getMonth() && date.day === event.date.getDate()) {
             date.event = event;
           }

@@ -55,6 +55,7 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
     bindEvent = (date) ->
       return unless date || $scope.events
       for event in $scope.events
+        event.date = new Date(event.date)
         date.event = event if date.year == event.date.getFullYear() && date.month == event.date.getMonth() && date.day == event.date.getDate()
 
     allowedDate = (date) ->
