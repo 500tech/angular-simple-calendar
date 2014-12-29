@@ -35,13 +35,16 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
   controller: ($scope) ->
     MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    
+
     $scope.options ?= {}
     $scope.options.dayNamesLength ?= 3
-    
+
     $scope.onClick = (date) ->
       return if !date || date.disabled
-      $scope.options.eventClick(date) if date.event
+      if date.event
+        $scope.options.eventClick(date)
+      else
+        $scope.options.dateClick(date)
 
     if $scope.options.defaultDate
       $scope.options.defaultDate = new Date($scope.options.defaultDate)
@@ -65,17 +68,17 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
       return false if $scope.options.minDate && currDate < $scope.options.minDate
       return false if $scope.options.maxDate && currDate > $scope.options.maxDate
       true
-    
+
     $scope.allowedPrevMonth = ->
       return true unless $scope.options.minDate
       currMonth = MONTHS.indexOf($scope.selectedMonth)
-      prevYear = if currMonth == 0 then ($scope.selectedYear - 1) else $scope.selectedYear 
+      prevYear = if currMonth == 0 then ($scope.selectedYear - 1) else $scope.selectedYear
       prevMonth = if currMonth == 0 then 11 else (currMonth - 1)
       return false if prevYear < $scope.options.minDate.getFullYear()
       if prevYear == $scope.options.minDate.getFullYear()
-        return false if prevMonth < $scope.options.minDate.getMonth() 
+        return false if prevMonth < $scope.options.minDate.getMonth()
       true
-    
+
     $scope.allowedNextMonth = ->
       return true unless $scope.options.maxDate
       currMonth = MONTHS.indexOf($scope.selectedMonth)
@@ -85,13 +88,13 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
       if nextYear == $scope.options.maxDate.getFullYear()
         return false if nextMonth > $scope.options.maxDate.getMonth()
       true
-      
+
     calculateWeeks = ->
       $scope.weeks = []
       week = null
       daysInCurrentMonth = new Date($scope.selectedYear, MONTHS.indexOf($scope.selectedMonth) + 1, 0).getDate()
       for day in [1..daysInCurrentMonth]
-        dayNumber = new Date($scope.selectedYear, MONTHS.indexOf($scope.selectedMonth), day).getDay() 
+        dayNumber = new Date($scope.selectedYear, MONTHS.indexOf($scope.selectedMonth), day).getDay()
         week ?= [null, null, null, null, null, null, null]
         week[dayNumber] =
           year: $scope.selectedYear
@@ -101,11 +104,11 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
           bindEvent(week[dayNumber]) if $scope.events
         else
           week[dayNumber].disabled = true
-          
+
         if dayNumber == 6 || day == daysInCurrentMonth
           $scope.weeks.push(week)
           week = undefined
-      
+
     $scope.selectedYear  = $scope.options.defaultDate.getFullYear()
     $scope.selectedMonth = MONTHS[$scope.options.defaultDate.getMonth()]
     $scope.selectedDay   = $scope.options.defaultDate.getDate()
@@ -129,7 +132,7 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
       else
         $scope.selectedMonth = MONTHS[currIndex - 1]
       calculateWeeks()
-    
+
     $scope.nextMonth = ->
       return unless $scope.allowedNextMonth()
       currIndex = MONTHS.indexOf($scope.selectedMonth)

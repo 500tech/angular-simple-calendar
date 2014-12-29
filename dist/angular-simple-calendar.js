@@ -6,32 +6,32 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
       events: '=?'
     },
     template: '<div class="calendar">' +
-                '<div class="current-month">' +
-                  '<div class="move-month prev-month" ng-click="prevMonth()">' +
-                    '<span ng-show="allowedPrevMonth()">‹</span>' +
-                  '</div>' +
-                  '<span>{{ selectedMonth }}</span>' +
-                  '&nbsp;' +
-                  '<span>{{ selectedYear }}</span>' +
-                  '<div class="move-month next-month" ng-click="nextMonth()">' +
-                    '<span ng-show="allowedNextMonth()">›</span>' +
-                  '</div>' +
-                '</div>' +
-                '<div>' +
-                  '<div ng-repeat="day in weekDays(options.dayNamesLength) track by $index" class="weekday">{{ day }}</div>' +
-                '</div>' +
-                '<div>' +
-                  '<div ng-repeat="week in weeks track by $index" class="week">' +
-                    '<div class="day"' +
-                          'ng-class="{default: isDefaultDate(date), event: date.event, disabled: date.disabled || !date}"' +
-                          'ng-repeat="date in week  track by $index"' +
-                          'ng-click="onClick(date)">' +
-                      '<div class="day-number">{{ date.day || "&nbsp;" }}</div>' +
-                      '<div class="event-title">{{ date.event.title || "&nbsp;" }}</div>' +
-                  ' </div>' +
-                  '</div>' +
-                '</div>' +
-              '</div>',
+      '<div class="current-month">' +
+      '<div class="move-month prev-month" ng-click="prevMonth()">' +
+      '<span ng-show="allowedPrevMonth()">‹</span>' +
+      '</div>' +
+      '<span>{{ selectedMonth }}</span>' +
+      '&nbsp;' +
+      '<span>{{ selectedYear }}</span>' +
+      '<div class="move-month next-month" ng-click="nextMonth()">' +
+      '<span ng-show="allowedNextMonth()">›</span>' +
+      '</div>' +
+      '</div>' +
+      '<div>' +
+      '<div ng-repeat="day in weekDays(options.dayNamesLength) track by $index" class="weekday">{{ day }}</div>' +
+      '</div>' +
+      '<div>' +
+      '<div ng-repeat="week in weeks track by $index" class="week">' +
+      '<div class="day"' +
+      'ng-class="{default: isDefaultDate(date), event: date.event, disabled: date.disabled || !date}"' +
+      'ng-repeat="date in week  track by $index"' +
+      'ng-click="onClick(date)">' +
+      '<div class="day-number">{{ date.day || "&nbsp;" }}</div>' +
+      '<div class="event-title">{{ date.event.title || "&nbsp;" }}</div>' +
+      ' </div>' +
+      '</div>' +
+      '</div>' +
+      '</div>',
     controller: function ($scope) {
       var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       var WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -44,6 +44,8 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         if (!date || date.disabled) { return; }
         if (date.event) {
           $scope.options.eventClick(date);
+        } else {
+          $scope.options.dateClick(date);
         }
       };
 
@@ -66,13 +68,13 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         $scope.events.forEach(function(event) {
           if (date.year === event.date.getFullYear() && date.month === event.date.getMonth() && date.day === event.date.getDate()) {
             date.event = event;
-          } 
+          }
         });
       };
-      
+
       allowedDate = function (date) {
         if (!$scope.options.minDate && !$scope.options.maxDate) {
-          return true;  
+          return true;
         }
         var currDate = new Date([date.year, date.month + 1, date.day]);
         if ($scope.options.minDate && (currDate < $scope.options.minDate)) { return false; }
@@ -89,7 +91,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           prevYear = ($scope.selectedYear - 1);
         } else {
           prevYear = $scope.selectedYear;
-        } 
+        }
         if (currMonth === 0) {
           prevMonth = 11;
         } else {
@@ -97,11 +99,11 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         }
         if (prevYear < $scope.options.minDate.getFullYear()) { return false; }
         if (prevYear === $scope.options.minDate.getFullYear()) {
-          if (prevMonth < $scope.options.minDate.getMonth()) { return false; } 
+          if (prevMonth < $scope.options.minDate.getMonth()) { return false; }
         }
         return true;
       };
-      
+
       $scope.allowedNextMonth = function () {
         var nextYear = null;
         var nextMonth = null;
@@ -111,7 +113,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           nextYear = ($scope.selectedYear + 1);
         } else {
           nextYear = $scope.selectedYear;
-        } 
+        }
         if (currMonth === 11) {
           nextMonth = 0;
         } else {
@@ -119,7 +121,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         }
         if (nextYear > $scope.options.maxDate.getFullYear()) { return false; }
         if (nextYear === $scope.options.maxDate.getFullYear()) {
-          if (nextMonth > $scope.options.maxDate.getMonth()) { return false; } 
+          if (nextMonth > $scope.options.maxDate.getMonth()) { return false; }
         }
         return true;
       };
@@ -165,7 +167,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           date.month === $scope.options.defaultDate.getMonth() &&
           date.day === $scope.options.defaultDate.getDate()
       };
-      
+
       $scope.prevMonth = function () {
         if (!$scope.allowedPrevMonth()) { return; }
         var currIndex = MONTHS.indexOf($scope.selectedMonth);
@@ -173,9 +175,9 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           $scope.selectedYear -= 1;
           $scope.selectedMonth = MONTHS[11];
         } else {
-          $scope.selectedMonth = MONTHS[currIndex - 1];  
+          $scope.selectedMonth = MONTHS[currIndex - 1];
         }
-        calculateWeeks();  
+        calculateWeeks();
       };
 
       $scope.nextMonth = function () {
@@ -185,11 +187,11 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           $scope.selectedYear += 1;
           $scope.selectedMonth = MONTHS[0];
         } else {
-          $scope.selectedMonth = MONTHS[currIndex + 1];  
+          $scope.selectedMonth = MONTHS[currIndex + 1];
         }
-        calculateWeeks();  
+        calculateWeeks();
       };
-      
+
     }
   }
 });

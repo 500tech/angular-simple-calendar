@@ -35,20 +35,44 @@ Simple calendar takes a few options:
 
 ```javascript
 app.controller('UsersIndexController', ['$scope', function($scope) {
+  // ... code omitted ...
   // Dates can be passed as strings or Date objects 
   $scope.calendarOptions = {
     defaultDate: "2016-10-10",
     minDate: new Date(),
     maxDate: new Date([2020, 12, 31]),
     dayNamesLength: 1 // How to display weekdays (1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names; default is 1)
+    eventClick: $scope.eventClick
+    dateClick: $scope.dateClick
   }
   
   $scope.events = [
-    {title: 'NY', date: new Date([2015, 12, 31])},
-    {title: 'ID', date: new Date([2015, 6, 4])}
-  ]
+      {title: 'NY', date: new Date([2015, 12, 31])},
+      {title: 'ID', date: new Date([2015, 6, 4])}
+    ]
 }]);
 ```
+
+## Events
+
+You can pass two functions in options: eventClick and/or dateClick.
+
+If clicked date has an event on it, eventClick will fire, otherwise will dateClick.
+
+Both functions can get an object with data about clicked date:
+
+{
+  year: 2014,
+  month: 0, // Regular JS month number, starts with 0 for January
+  day: 23,
+  event: { // event will only be added for dates that have an event.
+    title: "Some event",
+    date: [Date Object]
+  }
+}
+
+
+## Customization
 
 Simple calendar is very easy to customize via css:
 
