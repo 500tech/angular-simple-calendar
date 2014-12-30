@@ -199,6 +199,10 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         calculateSelectedDate();
       });
 
+      $scope.$watch('events', function() {
+        calculateWeeks();
+      });
+
     }
   }
 });

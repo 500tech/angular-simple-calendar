@@ -147,3 +147,6 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
 
     $scope.$watch 'options.defaultDate', ->
       calculateSelectedDate()
+
+    $scope.$watch 'events', ->
+      calculateWeeks() 
