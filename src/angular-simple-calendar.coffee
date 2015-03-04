@@ -32,7 +32,7 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
               </div>
             </div>
             '''
-  controller: ($scope) ->
+  controller: [ "$scope", ($scope) ->
     MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
@@ -150,3 +150,4 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
 
     $scope.$watch 'events', ->
       calculateWeeks() 
+  ]

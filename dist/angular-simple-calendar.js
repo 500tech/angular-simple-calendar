@@ -32,7 +32,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
       '</div>' +
       '</div>' +
       '</div>',
-    controller: function ($scope) {
+    controller: ['$scope', function ($scope) {
       var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       var WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       var calculateSelectedDate, calculateWeeks, allowedDate, bindEvent;
@@ -203,6 +203,6 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         calculateWeeks();
       });
 
-    }
+    }]
   }
 });
