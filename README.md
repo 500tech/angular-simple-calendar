@@ -61,6 +61,7 @@ If clicked date has an event on it, eventClick will fire, otherwise will dateCli
 
 Both functions can get an object with data about clicked date:
 
+```javascript
 {
   year: 2014,
   month: 0, // Regular JS month number, starts with 0 for January
@@ -70,6 +71,7 @@ Both functions can get an object with data about clicked date:
     date: [Date Object]
   }
 }
+```
 
 
 ## Customization
