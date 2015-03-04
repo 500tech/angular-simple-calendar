@@ -8,13 +8,13 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
     template: '<div class="calendar">' +
       '<div class="current-month">' +
       '<div class="move-month prev-month" ng-click="prevMonth()">' +
-      '<span ng-show="allowedPrevMonth()">‹</span>' +
+      '<span ng-show="allowedPrevMonth()">&#x2039;</span>' +
       '</div>' +
       '<span>{{ selectedMonth }}</span>' +
       '&nbsp;' +
       '<span>{{ selectedYear }}</span>' +
       '<div class="move-month next-month" ng-click="nextMonth()">' +
-      '<span ng-show="allowedNextMonth()">›</span>' +
+      '<span ng-show="allowedNextMonth()">&#x203a;</span>' +
       '</div>' +
       '</div>' +
       '<div>' +
