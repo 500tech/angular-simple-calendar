@@ -7,13 +7,13 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
             <div class="calendar">
               <div class="current-month">
                 <div class="move-month prev-month" ng-click="prevMonth()">
-                  <span ng-show="allowedPrevMonth()">‹</span>
+                  <span ng-show="allowedPrevMonth()">&#x2039;</span>
                 </div>
                 <span>{{ selectedMonth }}</span>
                 &nbsp;
                 <span>{{ selectedYear }}</span>
                 <div class="move-month next-month" ng-click="nextMonth()">
-                  <span ng-show="allowedNextMonth()">›</span>
+                  <span ng-show="allowedNextMonth()">&#x203a;</span>
                 </div>
               </div>
               <div>
@@ -32,7 +32,7 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
               </div>
             </div>
             '''
-  controller: ($scope) ->
+  controller: [ "$scope", ($scope) ->
     MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
@@ -150,3 +150,4 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
 
     $scope.$watch 'events', ->
       calculateWeeks() 
+  ]
