@@ -41,15 +41,15 @@ app.controller('UsersIndexController', ['$scope', function($scope) {
     defaultDate: "2016-10-10",
     minDate: new Date(),
     maxDate: new Date([2020, 12, 31]),
-    dayNamesLength: 1 // How to display weekdays (1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names; default is 1)
-    eventClick: $scope.eventClick
+    dayNamesLength: 1, // How to display weekdays (1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names; default is 1)
+    eventClick: $scope.eventClick,
     dateClick: $scope.dateClick
-  }
+  };
   
   $scope.events = [
       {title: 'NY', date: new Date([2015, 12, 31])},
       {title: 'ID', date: new Date([2015, 6, 4])}
-    ]
+    ];
 }]);
 ```
 
