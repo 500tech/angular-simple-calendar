@@ -5,7 +5,7 @@
     "Ilya Gelman <ilyagelman@ilyagelman.com>"
   ],
   "description": "Simple customizable AngularJS calendar with no dependencies and timed events",
-  "main": ["dist/angular-simple-calendar.css, dist/angular-simple-calendar.js"],
+  "main": ["dist/angular-simple-calendar.css", "dist/angular-simple-calendar.js"],
   "keywords": [
     "angular",
     "angularjs",
