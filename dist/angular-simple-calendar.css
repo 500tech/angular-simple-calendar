@@ -22,31 +22,73 @@ simple-calendar .next-month {
 }
 
 simple-calendar .current-month {
-  width: 100%;
   text-align: center;
   padding: 20px 8px;
 }
 
+/* *********************** */
+/* START Week CSS Settings */
+/* *********************** */
+
 simple-calendar .week {
-  height: 30px;
+  height: 55px;
 }
+
+simple-calendar .week:last-child .day {
+	height: inherit;
+	overflow:hidden;
+  border-bottom: 1px solid #dddddd;
+}
+
+/* ********************* */
+/* END Week CSS Settings */
+/* ********************* */
+
+/* ************************** */
+/* START Weekday CSS Settings */
+/* ************************** */
 
 simple-calendar .weekday {
   text-align: center;
+  padding-right: 0.9px;
+  border-top: 1px solid #dddddd;
 }
 
+simple-calendar .weekday:first-child {
+  text-align: center;
+  border-left: 1px solid #dddddd;
+}
+
+simple-calendar .weekday:last-child {
+  text-align: center;
+  border-right: 1px solid #dddddd;
+}
+
+/* ************************ */
+/* END Weekday CSS Settings */
+/* ************************ */
+
 simple-calendar .week .day:last-child {
-  border-right: none;
+  border-right: 1px solid #dddddd;
+}
+
+simple-calendar .week .day:nth-child(1) {
+  border-left: 1px solid #dddddd;
+}
+
+simple-calendar .week .day:nth-child(7) {
+  border-right: 1px solid #dddddd;
 }
 
 simple-calendar .weekday, .day {
   display: inline-block;
-  width: calc(100% / 7);
+  width: calc(95% / 7);
 }
 
 simple-calendar .day {
-  height: 30px;
-  padding: 2px;
+  height: inherit;
+  padding-bottom: 2px;
+  padding-top: 2px;
   border: 1px solid #dddddd;
   border-bottom: none;
   border-left: none;
