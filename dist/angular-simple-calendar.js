@@ -71,7 +71,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
         if (!$scope.options.minDate && !$scope.options.maxDate) {
           return true;
         }
-        var currDate = new Date([date.year, date.month + 1, date.day]);
+        var currDate = new Date(date.year, date.month, date.day);
         if ($scope.options.minDate && (currDate < $scope.options.minDate)) { return false; }
         if ($scope.options.maxDate && (currDate > $scope.options.maxDate)) { return false; }
         return true;
