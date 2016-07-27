@@ -42,6 +42,8 @@ app.controller('UsersIndexController', ['$scope', function($scope) {
     minDate: new Date(),
     maxDate: new Date([2020, 12, 31]),
     dayNamesLength: 1, // How to display weekdays (1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names; default is 1)
+    multiEventDates: true, // Set the calendar to render multiple events in the same day or only one event, default is false
+    maxEventsPerDay: 1, // Set how many events should the calendar display before showing the 'More Events' message, default is 3;
     eventClick: $scope.eventClick,
     dateClick: $scope.dateClick
   };
@@ -61,6 +63,7 @@ If clicked date has an event on it, eventClick will fire, otherwise will dateCli
 
 Both functions can get an object with data about clicked date:
 
+```javascript
 {
   year: 2014,
   month: 0, // Regular JS month number, starts with 0 for January
@@ -70,6 +73,7 @@ Both functions can get an object with data about clicked date:
     date: [Date Object]
   }
 }
+```
 
 
 ## Customization
