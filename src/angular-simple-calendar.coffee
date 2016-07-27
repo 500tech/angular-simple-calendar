@@ -60,7 +60,7 @@ angular.module('500tech.calendar', []).directive 'calendar', ->
 
     allowedDate = (date) ->
       return true unless $scope.options.minDate || $scope.options.maxDate
-      currDate = new Date([date.year, date.month + 1, date.day])
+      currDate = new Date(date.year, date.month, date.day)
       return false if $scope.options.minDate && currDate < $scope.options.minDate
       return false if $scope.options.maxDate && currDate > $scope.options.maxDate
       true
