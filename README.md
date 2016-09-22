@@ -1,7 +1,8 @@
 # angular-simple-calendar
 
-Simple customizable AngularJS calendar with no dependencies. Supports simple events (only date and title).
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
+Simple customizable AngularJS calendar with no dependencies. Supports simple events (only date and title).
 
 ## Install
 
